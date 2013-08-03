@@ -8,31 +8,46 @@
         <meta name='viewport' content='initial-scale=1.0 maximum-scale=1.0'>
     </head>
     <body>
+    <div id='progress'></div>
         <script src='js/d3.v3.min.js'></script>
         <script src='js/queue.js'></script>
         <script src='geocodemany.js'></script>
+        <script src='data.js'></script>
         <script>
-var data = [{
-    city: 'Chester',
-    state: 'New Jersey'
-}, {
-    city: 'Washington',
-    state: 'DC'
-}];
 
-function transform(obj) {
-    return obj.city + ', ' + obj.state;
+function progressChart(elem, w, h) {
+    var c = elem.appendChild(document.createElement('canvas'));
+    c.width = w;
+    c.height = h;
+    var ctx = c.getContext('2d');
+    var ratio;
+    var fill = {
+        success: '#A2D398',
+        error: '#D498BA'
+    };
+
+    return function(e) {
+        if (!ratio) ratio = h / e.todo;
+        ctx.fillStyle = fill[e.status];
+        ctx.fillRect(0, (e.done - 1) * ratio, w, e.done * ratio);
+    };
 }
 
-function progress() {
-    console.log(arguments);
+var prog = progressChart(document.getElementById('progress'), 100, 200);
+
+function transform(obj) {
+    return obj.name;
+}
+
+function progress(e) {
+    prog(e);
 }
 
 function done() {
     console.log(arguments);
 }
 
-var geocoder = geocodemany('tmcw.map-u4ca5hnt');
+var geocoder = geocodemany('tmcw.map-u4ca5hnt', 0);
 
 geocoder(data, transform, progress, done);
         </script>

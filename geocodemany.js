@@ -14,9 +14,12 @@ function geocodemany(mapid, throttle) {
             progress({
                 todo: todo,
                 done: ++done,
+                status: 'error',
                 statuses: statuses
             });
-            callback(err);
+            setTimeout(function() {
+                callback(null, err);
+            }, throttle);
         }
 
         // forgive me
@@ -38,6 +41,7 @@ function geocodemany(mapid, throttle) {
                         progress({
                             todo: todo,
                             done: ++done,
+                            status: 'success',
                             statuses: statuses
                         });
                         setTimeout(function() {
@@ -45,17 +49,23 @@ function geocodemany(mapid, throttle) {
                         }, throttle);
 
                     } else {
+
                         error({
                             error: new Error('Location not found'),
+                            __iserror__: true,
                             data: output
                         }, callback);
+
                     }
                 })
                 .on('error', function(err) {
+
                     error({
                         error: err,
+                        __iserror__: true,
                         data: output
                     }, callback);
+
                 })
                 .get();
         }
@@ -66,6 +76,11 @@ function geocodemany(mapid, throttle) {
 
         list.forEach(enqueue);
 
-        q.awaitAll(callback);
+        q.awaitAll(function(err, res) {
+            callback(res
+                .filter(function(r) { return r.__iserror__; })
+                .map(function(r) { delete r.__iserror__; return r; }),
+                res.filter(function(r) { return !r.__iserror__; }));
+        });
     };
 }
