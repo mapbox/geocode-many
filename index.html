@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel='stylesheet' type='text/css' href='css/style.css' />
+        <meta http-equiv='content-type' content='text/html; charset=utf-8' />
+        <meta name='viewport' content='initial-scale=1.0 maximum-scale=1.0'>
+    </head>
+    <body>
+        <script src='js/d3.v3.min.js'></script>
+        <script src='js/queue.js'></script>
+        <script src='geocodemany.js'></script>
+        <script>
+var data = [{
+    city: 'Chester',
+    state: 'New Jersey'
+}, {
+    city: 'Washington',
+    state: 'DC'
+}];
+
+function transform(obj) {
+    return obj.city + ', ' + obj.state;
+}
+
+function progress() {
+    console.log(arguments);
+}
+
+function done() {
+    console.log(arguments);
+}
+
+var geocoder = geocodemany('tmcw.map-u4ca5hnt');
+
+geocoder(data, transform, progress, done);
+        </script>
+    </body>
+</html>
