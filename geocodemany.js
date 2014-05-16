@@ -1,3 +1,5 @@
+module.exports = geocodemany;
+
 function geocodemany(mapid, throttle) {
     throttle = (throttle === undefined) ? 200 : throttle;
     return function(list, transform, progress, callback) {
