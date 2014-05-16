@@ -3,9 +3,6 @@
   "version": "0.0.0",
   "description": "Given an array of objects and a transform into a geocodable string, geocode them if possible.",
   "main": "geocodemany.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/tristen/geocode-many.git"
@@ -19,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/tristen/geocode-many/issues"
   },
-  "homepage": "https://github.com/tristen/geocode-many"
+  "homepage": "https://github.com/tristen/geocode-many",
+  "dependencies": {
+    "d3": "3.4.6",
+    "queue-async": "1.0.7"
+  },
+  "devDependencies": {
+    "browserify": "~2.12.0"
+  }
 }
