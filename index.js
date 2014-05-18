@@ -45,6 +45,7 @@ function geocodemany(mapid, throttle) {
                         statuses[done] = true;
                         progress({
                             todo: todo,
+                            data: data,
                             done: ++done,
                             status: 'success',
                             statuses: statuses
