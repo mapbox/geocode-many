@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title></title>
-        <link rel='stylesheet' type='text/css' href='css/style.css' />
-        <meta http-equiv='content-type' content='text/html; charset=utf-8' />
-        <meta name='viewport' content='initial-scale=1.0 maximum-scale=1.0'>
-    </head>
-    <body>
-    <div id='progress'></div>
-        <script src='js/d3.v3.min.js'></script>
-        <script src='js/queue.js'></script>
-        <script src='geocodemany.js'></script>
-        <script src='data.js'></script>
-        <script>
+<head>
+  <meta charset='utf-8'>
+  <title></title>
+</head>
+<body>
+<style>
+body { margin:0; padding:0; }
+</style>
+<div id='progress'></div>
+<script src='geocodemany.js'></script>
+<script src='data.js'></script>
+<script>
 
 function progressChart(elem, w, h) {
     var c = elem.appendChild(document.createElement('canvas'));
@@ -34,22 +32,13 @@ function progressChart(elem, w, h) {
 }
 
 var prog = progressChart(document.getElementById('progress'), 100, 200);
-
-function transform(obj) {
-    return obj.name;
-}
-
-function progress(e) {
-    prog(e);
-}
-
-function done() {
-    console.log(arguments);
-}
+function transform(obj) { return obj.name; }
+function progress(e)    { prog(e); }
+function done()         { console.log(arguments); }
 
 var geocoder = geocodemany('tmcw.map-u4ca5hnt', 0);
+    geocoder(data, transform, progress, done);
 
-geocoder(data, transform, progress, done);
-        </script>
-    </body>
+</script>
+</body>
 </html>
