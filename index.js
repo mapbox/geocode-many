@@ -33,7 +33,7 @@ function geocodemany(mapid, throttle) {
         function run(obj, callback) {
             var str = transform(obj);
             var output = copy(obj);
-            d3.json('http://api.tiles.mapbox.com/v3/' + mapid + '/geocode/' +
+            d3.json('https://api.tiles.mapbox.com/v3/' + mapid + '/geocode/' +
                 encodeURIComponent(str) + '.json')
                 .on('load', function(data) {
                     if (data && data.results && data.results.length &&
