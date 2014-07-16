@@ -1,6 +1,6 @@
 {
   "name": "geocode-many",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Given an array of objects and a transform into a geocodable string, geocode them if possible.",
   "main": "index.js",
   "repository": {
