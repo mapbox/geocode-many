@@ -1,5 +1,6 @@
 var d3 = require('d3');
 var queue = require('queue-async');
+var https = require('https');
 
 module.exports = geocodemany;
 
@@ -31,11 +32,38 @@ function geocodemany(mapid, throttle) {
         function copy(o) { return JSON.parse(JSON.stringify(o)); }
 
         function run(obj, callback) {
+
             var str = transform(obj);
             var output = copy(obj);
-            d3.json('https://api.tiles.mapbox.com/v3/' + mapid + '/geocode/' +
-                encodeURIComponent(str) + '.json')
-                .on('load', function(data) {
+
+            var options = {
+                hostname: 'api.tiles.mapbox.com',
+                path: '/v3/' + mapid + '/geocode/' + encodeURIComponent(str) + '.json',
+                method: 'GET',
+                agent: false,
+                port: 443,
+                withCredentials: false
+            }
+
+            var req = https.request(options, function(res) {
+                var data = '';
+
+                res.on('data', function(chunk) {
+                    data += chunk;
+                });
+
+                res.on('error', function () {
+                    error({
+                        error: new Error('Location not found'),
+                        __iserror__: true,
+                        data: output
+                    }, callback);
+                });
+
+                res.on('end', function () {
+
+                    data = JSON.parse(data);
+
                     if (data && data.results && data.results.length &&
                         data.results[0].length) {
 
@@ -64,16 +92,19 @@ function geocodemany(mapid, throttle) {
 
                     }
                 })
-                .on('error', function(err) {
+            })
 
-                    error({
-                        error: err,
-                        __iserror__: true,
-                        data: output
-                    }, callback);
+            req.on('error', function(err) {
+                error({
+                    error: err,
+                    __iserror__: true,
+                    data: output
+                }, callback);
+            });
 
-                })
-                .get();
+            req.shouldKeepAlive = false;
+
+            req.end();
         }
 
         function enqueue(obj) {
