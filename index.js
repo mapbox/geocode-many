@@ -40,7 +40,9 @@ function geocodemany(mapid, throttle) {
                 hostname: 'api.tiles.mapbox.com',
                 path: '/v3/' + mapid + '/geocode/' + encodeURIComponent(str) + '.json',
                 method: 'GET',
-                agent: false
+                agent: false,
+                port: 443,
+                withCredentials: false
             }
 
             var req = https.request(options, function(res) {
