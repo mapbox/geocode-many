@@ -1,10 +1,10 @@
-!function(e){"object"==typeof exports?module.exports=e():"function"==typeof define&&define.amd?define(e):"undefined"!=typeof window?window.geocodemany=e():"undefined"!=typeof global?global.geocodemany=e():"undefined"!=typeof self&&(self.geocodemany=e())}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var o;"undefined"!=typeof window?o=window:"undefined"!=typeof global?o=global:"undefined"!=typeof self&&(o=self),o.geocodemany=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/tristen/dev/mapbox/geocode-many/index.js":[function(require,module,exports){
 var d3 = require('d3');
 var queue = require('queue-async');
 
 module.exports = geocodemany;
 
-function geocodemany(mapid, throttle) {
+function geocodemany(accessToken, throttle) {
     throttle = (throttle === undefined) ? 200 : throttle;
     return function(list, transform, progress, callback) {
 
@@ -34,15 +34,14 @@ function geocodemany(mapid, throttle) {
         function run(obj, callback) {
             var str = transform(obj);
             var output = copy(obj);
-            d3.json('http://api.tiles.mapbox.com/v3/' + mapid + '/geocode/' +
-                encodeURIComponent(str) + '.json')
+            d3.json('https://api.tiles.mapbox.com/v4/geocode/mapbox.places/' +
+                encodeURIComponent(str) + '.json?access_token=' + accessToken)
                 .on('load', function(data) {
-                    if (data && data.results && data.results.length &&
-                        data.results[0].length) {
+                    if (data && data.features && data.features.length) {
 
-                        var ll = data.results[0][0];
-                        output.latitude = ll.lat;
-                        output.longitude = ll.lon;
+                        var ll = data.features[0];
+                        output.longitude = ll.center[0];
+                        output.latitude = ll.center[1];
                         statuses[done] = true;
                         progress({
                             todo: todo,
@@ -56,13 +55,11 @@ function geocodemany(mapid, throttle) {
                         }, throttle);
 
                     } else {
-
                         error({
                             error: new Error('Location not found'),
                             __iserror__: true,
                             data: output
                         }, callback);
-
                     }
                 })
                 .on('error', function(err) {
@@ -92,7 +89,7 @@ function geocodemany(mapid, throttle) {
     };
 }
 
-},{"d3":2,"queue-async":3}],2:[function(require,module,exports){
+},{"d3":"/Users/tristen/dev/mapbox/geocode-many/node_modules/d3/d3.js","queue-async":"/Users/tristen/dev/mapbox/geocode-many/node_modules/queue-async/queue.js"}],"/Users/tristen/dev/mapbox/geocode-many/node_modules/d3/d3.js":[function(require,module,exports){
 !function() {
   var d3 = {
     version: "3.4.6"
@@ -9356,7 +9353,7 @@ function geocodemany(mapid, throttle) {
     this.d3 = d3;
   }
 }();
-},{}],3:[function(require,module,exports){
+},{}],"/Users/tristen/dev/mapbox/geocode-many/node_modules/queue-async/queue.js":[function(require,module,exports){
 (function() {
   var slice = [].slice;
 
@@ -9438,7 +9435,5 @@ function geocodemany(mapid, throttle) {
   else this.queue = queue;
 })();
 
-},{}]},{},[1])
-(1)
+},{}]},{},["/Users/tristen/dev/mapbox/geocode-many/index.js"])("/Users/tristen/dev/mapbox/geocode-many/index.js")
 });
-;

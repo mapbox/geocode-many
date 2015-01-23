@@ -26,7 +26,7 @@ function done() {
     console.log(arguments);
 }
 
-var geocoder = geocodemany('tmcw.map-u4ca5hnt');
+var geocoder = geocodemany('ACCESSTOKEN');
 
 geocoder(data, transform, progress, done);
 ```

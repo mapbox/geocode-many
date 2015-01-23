@@ -3,7 +3,7 @@ var queue = require('queue-async');
 
 module.exports = geocodemany;
 
-function geocodemany(mapid, throttle) {
+function geocodemany(accessToken, throttle) {
     throttle = (throttle === undefined) ? 200 : throttle;
     return function(list, transform, progress, callback) {
 
@@ -33,15 +33,14 @@ function geocodemany(mapid, throttle) {
         function run(obj, callback) {
             var str = transform(obj);
             var output = copy(obj);
-            d3.json('https://api.tiles.mapbox.com/v3/' + mapid + '/geocode/' +
-                encodeURIComponent(str) + '.json')
+            d3.json('https://api.tiles.mapbox.com/v4/geocode/mapbox.places/' +
+                encodeURIComponent(str) + '.json?access_token=' + accessToken)
                 .on('load', function(data) {
-                    if (data && data.results && data.results.length &&
-                        data.results[0].length) {
+                    if (data && data.features && data.features.length) {
 
-                        var ll = data.results[0][0];
-                        output.latitude = ll.lat;
-                        output.longitude = ll.lon;
+                        var ll = data.features[0];
+                        output.longitude = ll.center[0];
+                        output.latitude = ll.center[1];
                         statuses[done] = true;
                         progress({
                             todo: todo,
@@ -55,13 +54,11 @@ function geocodemany(mapid, throttle) {
                         }, throttle);
 
                     } else {
-
                         error({
                             error: new Error('Location not found'),
                             __iserror__: true,
                             data: output
                         }, callback);
-
                     }
                 })
                 .on('error', function(err) {
