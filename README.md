@@ -1,7 +1,8 @@
-## geocodemany
+geocodemany
+---
 
-given an array of objects and a transform into a geocodable string, geocode
-them if possible.
+Given an array of objects and a transform into a geocodable string, geocode
+them if possible. Works in both node and the browser.
 
 ### example
 
@@ -26,7 +27,7 @@ function done() {
     console.log(arguments);
 }
 
-var geocoder = geocodemany('tmcw.map-u4ca5hnt');
+var geocoder = geocodemany('ACCESSTOKEN');
 
 geocoder(data, transform, progress, done);
 ```

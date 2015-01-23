@@ -1,8 +1,11 @@
 {
   "name": "geocode-many",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Given an array of objects and a transform into a geocodable string, geocode them if possible.",
   "main": "index.js",
+  "scripts": {
+    "start": "watchify index.js -s geocodemany -o geocodemany.js & serve"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/mapbox/geocode-many.git"
