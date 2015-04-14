@@ -1,6 +1,6 @@
 {
   "name": "geocode-many",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Given an array of objects and a transform into a geocodable string, geocode them if possible.",
   "main": "index.js",
   "scripts": {
@@ -21,10 +21,10 @@
   },
   "homepage": "https://github.com/mapbox/geocode-many",
   "dependencies": {
-    "d3": "3.4.6",
-    "queue-async": "1.0.7"
+    "queue-async": "1.0.7",
+    "xhr": "^2.0.1"
   },
   "devDependencies": {
-    "browserify": "~2.12.0"
+    "browserify": "^9.0.8"
   }
 }
