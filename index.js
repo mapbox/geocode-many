@@ -1,4 +1,4 @@
-var https = require('https');
+var xhr = require('xhr');
 var queue = require('queue-async');
 
 module.exports = geocodemany;
@@ -45,68 +45,46 @@ function geocodemany(accessToken, throttle) {
       var output = copy(obj);
 
       var options = {
-        hostname: 'api.tiles.mapbox.com',
-        path: '/v4/geocode/mapbox.places/' + encodeURIComponent(str) + '.json?access_token=' + accessToken,
+        uri: 'https://api.tiles.mapbox.com/v4/geocode/mapbox.places/' + encodeURIComponent(str) + '.json?access_token=' + accessToken,
         method: 'GET',
-        agent: false,
-        port: 443,
         withCredentials: false
       };
 
-      var req = https.request(options, function(res) {
-        var data = '';
-
-        res.on('data', function(chunk) {
-          data += chunk;
-        });
-
-        res.on('error', function() {
+      var req = xhr(options, function(err, res) {
+        if (err) {
           error({
             error: new Error('Location not found'),
             __iserror__: true,
             data: output
           }, callback);
-        });
+        }
 
-        res.on('end', function() {
-          data = JSON.parse(data);
-          if (data && data.features && data.features.length) {
+        var data = JSON.parse(res.body);
+        if (data && data.features && data.features.length) {
 
-            var ll = data.features[0];
-            output.longitude = ll.center[0];
-            output.latitude = ll.center[1];
-            statuses[done] = true;
-            progress({
-              todo: todo,
-              data: data ? data : {},
-              done: ++done,
-              status: 'success',
-              statuses: statuses
-            });
-            setTimeout(function() {
-              callback(null, output);
-            }, throttle);
+          var ll = data.features[0];
+          output.longitude = ll.center[0];
+          output.latitude = ll.center[1];
+          statuses[done] = true;
+          progress({
+            todo: todo,
+            data: data ? data : {},
+            done: ++done,
+            status: 'success',
+            statuses: statuses
+          });
+          setTimeout(function() {
+            callback(null, output);
+          }, throttle);
 
-          } else {
-            error({
-              error: new Error('Location not found'),
-              __iserror__: true,
-              data: output
-            }, callback);
-          }
-        });
+        } else {
+          error({
+            error: new Error('Location not found'),
+            __iserror__: true,
+            data: output
+          }, callback);
+        }
       });
-
-      req.on('error', function(err) {
-        error({
-          error: err,
-          __iserror__: true,
-          data: output
-        }, callback);
-      });
-
-      req.shouldKeepAlive = false;
-      req.end();
     }
 
     function enqueue(obj) {
