@@ -1,4 +1,4 @@
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var o;"undefined"!=typeof window?o=window:"undefined"!=typeof global?o=global:"undefined"!=typeof self&&(o=self),o.geocodemany=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/tristen/dev/mapbox/geocode-many/index.js":[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.geocodemany = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var xhr = require('xhr');
 var queue = require('queue-async');
 
@@ -110,7 +110,7 @@ function geocodemany(accessToken, throttle) {
   };
 }
 
-},{"queue-async":"/Users/tristen/dev/mapbox/geocode-many/node_modules/queue-async/queue.js","xhr":"/Users/tristen/dev/mapbox/geocode-many/node_modules/xhr/index.js"}],"/Users/tristen/dev/mapbox/geocode-many/node_modules/queue-async/queue.js":[function(require,module,exports){
+},{"queue-async":2,"xhr":3}],2:[function(require,module,exports){
 (function() {
   var slice = [].slice;
 
@@ -192,7 +192,7 @@ function geocodemany(accessToken, throttle) {
   else this.queue = queue;
 })();
 
-},{}],"/Users/tristen/dev/mapbox/geocode-many/node_modules/xhr/index.js":[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 "use strict";
 var window = require("global/window")
 var once = require("once")
@@ -364,7 +364,7 @@ function createXHR(options, callback) {
 
 function noop() {}
 
-},{"global/window":"/Users/tristen/dev/mapbox/geocode-many/node_modules/xhr/node_modules/global/window.js","once":"/Users/tristen/dev/mapbox/geocode-many/node_modules/xhr/node_modules/once/once.js","parse-headers":"/Users/tristen/dev/mapbox/geocode-many/node_modules/xhr/node_modules/parse-headers/parse-headers.js"}],"/Users/tristen/dev/mapbox/geocode-many/node_modules/xhr/node_modules/global/window.js":[function(require,module,exports){
+},{"global/window":4,"once":5,"parse-headers":9}],4:[function(require,module,exports){
 (function (global){
 if (typeof window !== "undefined") {
     module.exports = window;
@@ -377,7 +377,7 @@ if (typeof window !== "undefined") {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"/Users/tristen/dev/mapbox/geocode-many/node_modules/xhr/node_modules/once/once.js":[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 module.exports = once
 
 once.proto = once(function () {
@@ -398,7 +398,7 @@ function once (fn) {
   }
 }
 
-},{}],"/Users/tristen/dev/mapbox/geocode-many/node_modules/xhr/node_modules/parse-headers/node_modules/for-each/index.js":[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 var isFunction = require('is-function')
 
 module.exports = forEach
@@ -446,7 +446,7 @@ function forEachObject(object, iterator, context) {
     }
 }
 
-},{"is-function":"/Users/tristen/dev/mapbox/geocode-many/node_modules/xhr/node_modules/parse-headers/node_modules/for-each/node_modules/is-function/index.js"}],"/Users/tristen/dev/mapbox/geocode-many/node_modules/xhr/node_modules/parse-headers/node_modules/for-each/node_modules/is-function/index.js":[function(require,module,exports){
+},{"is-function":7}],7:[function(require,module,exports){
 module.exports = isFunction
 
 var toString = Object.prototype.toString
@@ -463,7 +463,7 @@ function isFunction (fn) {
       fn === window.prompt))
 };
 
-},{}],"/Users/tristen/dev/mapbox/geocode-many/node_modules/xhr/node_modules/parse-headers/node_modules/trim/index.js":[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 
 exports = module.exports = trim;
 
@@ -479,7 +479,7 @@ exports.right = function(str){
   return str.replace(/\s*$/, '');
 };
 
-},{}],"/Users/tristen/dev/mapbox/geocode-many/node_modules/xhr/node_modules/parse-headers/parse-headers.js":[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 var trim = require('trim')
   , forEach = require('for-each')
   , isArray = function(arg) {
@@ -511,5 +511,5 @@ module.exports = function (headers) {
 
   return result
 }
-},{"for-each":"/Users/tristen/dev/mapbox/geocode-many/node_modules/xhr/node_modules/parse-headers/node_modules/for-each/index.js","trim":"/Users/tristen/dev/mapbox/geocode-many/node_modules/xhr/node_modules/parse-headers/node_modules/trim/index.js"}]},{},["/Users/tristen/dev/mapbox/geocode-many/index.js"])("/Users/tristen/dev/mapbox/geocode-many/index.js")
+},{"for-each":6,"trim":8}]},{},[1])(1)
 });
