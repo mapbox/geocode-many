@@ -4,8 +4,8 @@
   "description": "Given an array of objects and a transform into a geocodable string, geocode them if possible.",
   "main": "index.js",
   "scripts": {
-    "build": "NODE_ENV=production browserify index.js -s geocodemany -o geocodemany.js",
-    "start": "watchify index.js -s geocodemany -o geocodemany.js & serve"
+    "build": "browserify index.js -s geocodemany | uglifyjs -c -m > geocodemany.js",
+    "start": "budo index.js:geocodemany.js --live -- -s geocodemany"
   },
   "repository": {
     "type": "git",
@@ -15,17 +15,18 @@
     "geocode",
     "geo"
   ],
-  "author": "@tmcw",
+  "author": "Mapbox",
   "license": "BSD",
   "bugs": {
     "url": "https://github.com/mapbox/geocode-many/issues"
   },
   "homepage": "https://github.com/mapbox/geocode-many",
   "dependencies": {
-    "queue-async": "1.0.7",
+    "d3-queue": "^3.0.3",
     "xhr": "^2.0.1"
   },
   "devDependencies": {
-    "browserify": "^9.0.8"
+    "browserify": "^13.1.0",
+    "budo": "^9.2.0"
   }
 }

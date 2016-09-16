@@ -1,5 +1,7 @@
+'use strict';
+
 var xhr = require('xhr');
-var queue = require('queue-async');
+var queue = require('d3-queue').queue;
 
 module.exports = geocodemany;
 
@@ -9,8 +11,6 @@ function geocodemany(accessToken, throttle) {
 
     var q = queue(1),
       todo = list.length,
-      out = [],
-      left = [],
       statuses = range(todo).map(function() {
         return undefined;
       }),
@@ -45,12 +45,12 @@ function geocodemany(accessToken, throttle) {
       var output = copy(obj);
 
       var options = {
-        uri: 'https://api.tiles.mapbox.com/v4/geocode/mapbox.places/' + encodeURIComponent(str) + '.json?access_token=' + accessToken,
+        uri: 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(str) + '.json?access_token=' + accessToken,
         method: 'GET',
         withCredentials: false
       };
 
-      var req = xhr(options, function(err, res) {
+      xhr(options, function(err, res) {
         if (err) {
           error({
             error: new Error('Location not found'),
@@ -94,6 +94,7 @@ function geocodemany(accessToken, throttle) {
     list.forEach(enqueue);
 
     q.awaitAll(function(err, res) {
+      if (err) return callback(err);
       callback(res
         .filter(function(r) {
           return r.__iserror__;
