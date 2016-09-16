@@ -1,3 +1,8 @@
+v1.1.0
+---
+
+- Upgrade packages and update query string to use Geocoder API v5
+
 v1.0.0
 ---
 
