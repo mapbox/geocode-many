@@ -45,7 +45,7 @@ function geocodemany(accessToken, throttle) {
       var output = copy(obj);
 
       var options = {
-        uri: 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(str) + '.json?access_token=' + accessToken,
+        uri: 'https://api.mapbox.com/geocoding/v5/mapbox.places-permanent/' + encodeURIComponent(str) + '.json?access_token=' + accessToken,
         method: 'GET',
         withCredentials: false
       };

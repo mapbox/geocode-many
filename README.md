@@ -31,3 +31,5 @@ var geocoder = geocodemany('ACCESSTOKEN');
 
 geocoder(data, transform, progress, done);
 ```
+
+*Note:* requires account access to the `mapbox.places-permanent`. See https://mapbox.com/api-documentation/#batch-requests for details.
