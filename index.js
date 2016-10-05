@@ -9,7 +9,7 @@ function geocodemany(accessToken, throttle) {
   throttle = (throttle === undefined) ? 200 : throttle;
   return function(list, transform, progress, callback) {
 
-    var q = queue(1),
+    var q = queue(),
       todo = list.length,
       statuses = range(todo).map(function() {
         return undefined;
