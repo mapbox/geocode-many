@@ -1,32 +1,32 @@
 {
-  "name": "geocode-many",
-  "version": "1.1.1",
-  "description": "Given an array of objects and a transform into a geocodable string, geocode them if possible.",
-  "main": "index.js",
-  "scripts": {
-    "build": "browserify index.js -s geocodemany | uglifyjs -c -m > geocodemany.js",
-    "start": "budo index.js:geocodemany.js --live -- -s geocodemany"
-  },
+  "license": "BSD-2-Clause", 
+  "name": "geocode-many", 
   "repository": {
-    "type": "git",
-    "url": "git://github.com/mapbox/geocode-many.git"
-  },
-  "keywords": [
-    "geocode",
-    "geo"
-  ],
-  "author": "Mapbox",
-  "license": "BSD",
+    "url": "git://github.com/mapbox/geocode-many.git", 
+    "type": "git"
+  }, 
+  "author": "Mapbox", 
   "bugs": {
     "url": "https://github.com/mapbox/geocode-many/issues"
-  },
-  "homepage": "https://github.com/mapbox/geocode-many",
+  }, 
+  "version": "1.1.1", 
   "dependencies": {
-    "d3-queue": "^3.0.3",
-    "xhr": "^2.0.1"
-  },
+    "xhr": "^2.0.1", 
+    "d3-queue": "^3.0.3"
+  }, 
+  "scripts": {
+    "start": "budo index.js:geocodemany.js --live -- -s geocodemany", 
+    "build": "browserify index.js -s geocodemany | uglifyjs -c -m > geocodemany.js"
+  }, 
+  "keywords": [
+    "geocode", 
+    "geo"
+  ], 
   "devDependencies": {
-    "browserify": "^13.1.0",
-    "budo": "^9.2.0"
-  }
+    "budo": "^9.2.0", 
+    "browserify": "^13.1.0"
+  }, 
+  "main": "index.js", 
+  "homepage": "https://github.com/mapbox/geocode-many", 
+  "description": "Given an array of objects and a transform into a geocodable string, geocode them if possible."
 }
